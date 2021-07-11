@@ -57,11 +57,11 @@ goto desktop
 cls
 echo.
 echo Checking your permissions...
+if %username%==guest goto usraddg
 if %username%==admin goto usraddv
 if %username%==qlog goto usraddv
-if %username%==guest goto usraddg
+if not %username%==quota goto usradde
 if not %username%==admin goto usradde
-if not %username%==qlog goto usradde
 
 :usradde
 cls
