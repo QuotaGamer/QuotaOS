@@ -5,7 +5,7 @@ title Quota OS 1.0-ALPHA-003
 :desktop
 cls
 if %username%==guest goto desktopguest
-type user\%username%\background\bg.net
+type user\%username%\background\bg.txt
 echo.
 echo     Welcome to QuotaOS
 echo.
