@@ -23,12 +23,21 @@ if %choose1%==4 goto settings
 if %choose1%==5 goto restart
 if %choose1%==6 goto usradd
 
+:usraddg
+cls
+echo.
+set/p "user-add=What username?"
+set/p "pass-add-g=What password?"
+echo useradd **GUEST** :%username-add%,%pass-add%>>login-add.net
+goto desktop
+
 :usradd
 cls
 echo.
 echo Checking your permissions...
 if %username%==admin goto usraddv
 if %username%==qlog goto usraddv
+if %username%==guest goto usraddg
 if not %username%==admin goto usradde
 if not %username%==qlog goto usradde
 
