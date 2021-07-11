@@ -4,6 +4,7 @@ title Quota OS 1.0-ALPHA-003
 
 :desktop
 cls
+if %username%==guest goto desktopguest
 type user\%username%\background\bg.net
 echo.
 echo     Welcome to QuotaOS
@@ -22,6 +23,27 @@ if %choose1%==3 goto quit
 if %choose1%==4 goto settings
 if %choose1%==5 goto restart
 if %choose1%==6 goto usradd
+
+:desktopguest
+cls
+type user\default\background\bg.net
+echo.
+echo     Welcome to QuotaOS
+echo.
+echo       Guest Session
+echo 1       Go to Apps
+echo 2     About QuotaOS
+echo 3     Exit QuotaOS
+echo 4       Add User
+echo 5       Log Out
+set/p "choose4=Choose:"
+if %choose4%==1 goto apps
+if %choose4%==2 goto about
+if %choose4%==3 goto quit
+if %choose4%==4 goto usraddg
+if %choose4%==5 login.bat
+goto desktopguest
+
 
 :usraddg
 cls
