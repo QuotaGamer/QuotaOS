@@ -2,4 +2,4 @@ APPADD (Application Importer, make apps with nano by saving them as ".bat" files
 BPT (Package Installer)
 nano (Text Editor)
 term (Terminal)
-calc 
+calc

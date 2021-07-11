@@ -29,3 +29,4 @@ echo Verified!
 echo.
 echo Adding application...
 echo %appname%>>applist.net
+exit
