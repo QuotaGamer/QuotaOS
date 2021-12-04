@@ -1,5 +1,0 @@
-#Zorg configuration file
-graphics = 'TRUE'
-mode = '800'
-user display server = '/system/zorg/images/maven/filetype/netfiles/user'
-system display server = '/system/zorg/images/maven/filetype/netfiles/system'

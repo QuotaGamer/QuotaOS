@@ -1,0 +1,10 @@
+Hey!
+If you aren't trying to update the OS, please close this.
+If you are, continue.
+
+
+Once you've checked for updates in the OS and downloaded the new update,
+you should be able to close the OS, then delete all its files EXCEPT FOR
+the automatically extracted update. Once you've done that, take the update
+files and move them into the OS's main folder. Then you're done! If you've
+done everything right, you should now be on the newest version of this OS!

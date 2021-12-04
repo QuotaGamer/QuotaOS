@@ -1,0 +1,15 @@
+-- Instructions to add users --
+_ Login.bat instructions _
+_1. Add the user to "Valid Users:"
+_2. Add the user's password hint to "Password Hints"
+_3. Add the user under the " set/p "pass=Password:" " prompt
+_4. Copy this template and paste it under the lowest verif(num)
+_ Template Start _
+:verif(num)
+if %pass%==(user's pass) goto desktop
+if not %pass%==(user's pass) goto login
+
+_ Template End _
+_ Login.bat instructions END _
+
+-- User, Pass, and Pass Hints --

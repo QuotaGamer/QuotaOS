@@ -13,7 +13,7 @@ echo /################################\
 echo ########## Accounts ##############
 echo \################################/
 echo.
-echo Valid users: admin
+echo Valid Users: admin
 echo.
 echo Or you can log in as a guest.
 echo.
@@ -25,11 +25,11 @@ set/p "username=Account Name:"
 if %username%==guest goto desktop
 if %username%==qlog goto desktop
 set/p "pass=Password:"
-if %username%==admin goto verifi2
+if %username%==admin goto verif1
 if not %username%==admin goto login
 
 
-:verifi2
+:verif1
 if %pass%==admin goto desktop
 if not %pass%==admin goto login
 
