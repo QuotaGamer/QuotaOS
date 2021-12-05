@@ -10,9 +10,9 @@
        # Press any key to go back.              #
        ##########################################
        # Changelog:                             #
-       # Removed the alpha-login debug and      #
-       # replaced it with a automatic login     #
-       # method checker,  to check if you logg- #
-       # -ed in correctly.                      #
-       #                                        #
+       # Fixed download.exe being removed,      #
+       # which broke the update system.         #
+       # Added a Template user, and made the ba-#
+       # se of a tutorial for making new users. #
+       # ..And more!                            #
        ##########################################

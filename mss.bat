@@ -1,8 +1,8 @@
 @echo off
 color 0a
 
-title Quota OS Alpha Build 7
-set version=Alpha-7
+title Quota OS Alpha Build 8
+set version=Alpha-8
 
 IF EXIST "update.bat" DEL /Q "update.bat"
 IF EXIST "UpdateFiles" RD "UpdateFiles" /S /Q
@@ -20,6 +20,8 @@ timeout 10 >nul
 goto desktopguest
 
 :desktop
+IF EXIST "update.bat" DEL /Q "update.bat"
+IF EXIST "UpdateFiles" RD "UpdateFiles" /S /Q
 cls
 if %username%==guest goto desktopguest
 type user\%username%\background\bg.txt
@@ -48,6 +50,8 @@ if %choose1%==7 login.bat
 if %choose1%==8 goto updatecheck
 
 :updatecheck
+IF EXIST "update.bat" DEL /Q "update.bat"
+IF EXIST "UpdateFiles" RD "UpdateFiles" /S /Q
 set local=%version%
 set localtwo=%local%
 set link=https://pastebin.com/raw/qPnXWs6r
