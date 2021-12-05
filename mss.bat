@@ -67,7 +67,7 @@ IF NOT "%local%"=="%localtwo%" goto :no
 
 :yes
 cls
-echo No updates found. Version: %local% , Server Version: %localtwo%
+echo No updates found. Version: %localtwo% , Server Version: %local%
 echo.
 echo Press any key to return to desktop.
 pause >nul
@@ -75,7 +75,7 @@ goto desktop
 
 :no
 cls
-echo Update found! Version: %local% , Server Version: %localtwo%
+echo Update found! Version: %localtwo% , Server Version: %local%
 echo.
 set/p instupdate="Download and Extract update? (Y/N)= "
 if %instupdate% == Y goto instupdate1
