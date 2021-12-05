@@ -33,7 +33,7 @@ if not %username%==admin goto login
 if %pass%==admin goto desktop
 if not %pass%==admin goto login
 
-
 :desktop
+set "loginuse=1"
 mss.bat
 exit

@@ -1,13 +1,23 @@
 @echo off
 color 0a
-title Quota OS Alpha Build 6
-set version=Alpha-6
+
+title Quota OS Alpha Build 7
+set version=Alpha-7
+
 IF EXIST "update.bat" DEL /Q "update.bat"
 IF EXIST "UpdateFiles" RD "UpdateFiles" /S /Q
 
-set/p "ifpr=If you opened mss.bat directly, press 2, otherwise, press 1. this is a debug feature for alpha. "
-if %ifpr%==2 set "username=qlog"
-if %ifpr%==1 goto desktop
+set "logtest=%loginuse%0"
+if %logtest% == 10 goto desktop
+goto LOGINERR
+
+:LOGINERR
+cls
+set "username=guest"
+echo We have detected that you logged in via a method other than the login.bat, which is opened when you use bootloader.bat.
+echo Because of this, your user has been set to %username%, to avoid the OS breaking. You will be sent to the guest desktop in ~10 seconds.
+timeout 10 >nul
+goto desktopguest
 
 :desktop
 cls

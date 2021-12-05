@@ -10,9 +10,9 @@
        # Press any key to go back.              #
        ##########################################
        # Changelog:                             #
-       # Added a automatic update system.       #
-       #                                        #
-       #                                        #
-       #                                        #
+       # Removed the alpha-login debug and      #
+       # replaced it with a automatic login     #
+       # method checker,  to check if you logg- #
+       # -ed in correctly.                      #
        #                                        #
        ##########################################
