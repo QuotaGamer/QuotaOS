@@ -1,8 +1,8 @@
 @echo off
 color 0a
 
-title Quota OS Alpha Build 9 Part-3
-set version=Alpha-9 Part-3
+title Quota OS Alpha Build 10
+set version=Alpha-10
 
 IF EXIST "update.bat" DEL /Q "update.bat"
 IF EXIST "UpdateFiles" RD "UpdateFiles" /S /Q
@@ -54,8 +54,7 @@ IF EXIST "update.bat" DEL /Q "update.bat"
 IF EXIST "UpdateFiles" RD "UpdateFiles" /S /Q
 set local=%version%
 set localtwo=%local%
-set link=https://pastebin.com/raw/qPnXWs6r
-download %link% update.bat
+powershell -Command "(New-Object Net.WebClient).DownloadFile('https://pastebin.com/raw/qPnXWs6r', 'update.bat')"
 CALL "update.bat"
 goto check-2
 
