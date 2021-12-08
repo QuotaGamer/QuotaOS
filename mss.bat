@@ -48,6 +48,7 @@ if %choose1%==5 goto restart
 if %choose1%==6 goto usradd
 if %choose1%==7 login.bat
 if %choose1%==8 goto updatecheck
+goto desktop
 
 :updatecheck
 IF EXIST "update.bat" DEL /Q "update.bat"
