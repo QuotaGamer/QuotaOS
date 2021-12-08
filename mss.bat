@@ -1,8 +1,8 @@
 @echo off
 color 0a
 
-title Quota OS Alpha Build 10
-set version=Alpha-10
+title Quota OS Alpha Build 11
+set version=Alpha-11
 
 IF EXIST "update.bat" DEL /Q "update.bat"
 IF EXIST "UpdateFiles" RD "UpdateFiles" /S /Q
