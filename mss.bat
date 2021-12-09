@@ -1,11 +1,12 @@
 @echo off
 color 0a
 
-title Quota OS Alpha Build 11
-set version=Alpha-11
+title Quota OS Alpha Build 12
+set version=Alpha-12
 
 IF EXIST "update.bat" DEL /Q "update.bat"
-IF EXIST "UpdateFiles" RD "UpdateFiles" /S /Q
+IF EXIST "UpdateFiles" RD "BatchOS-main" /S /Q
+IF EXIST "UpdateFiles" RD "Update" /S /Q
 
 set "logtest=%loginuse%0"
 if %logtest% == 10 goto desktop
@@ -21,7 +22,8 @@ goto desktopguest
 
 :desktop
 IF EXIST "update.bat" DEL /Q "update.bat"
-IF EXIST "UpdateFiles" RD "UpdateFiles" /S /Q
+IF EXIST "UpdateFiles" RD "BatchOS-main" /S /Q
+IF EXIST "UpdateFiles" RD "Update" /S /Q
 cls
 if %username%==guest goto desktopguest
 type user\%username%\background\bg.txt
@@ -52,7 +54,8 @@ goto desktop
 
 :updatecheck
 IF EXIST "update.bat" DEL /Q "update.bat"
-IF EXIST "UpdateFiles" RD "UpdateFiles" /S /Q
+IF EXIST "UpdateFiles" RD "BatchOS-main" /S /Q
+IF EXIST "UpdateFiles" RD "Update" /S /Q
 set local=%version%
 set localtwo=%local%
 powershell -Command "(New-Object Net.WebClient).DownloadFile('https://pastebin.com/raw/qPnXWs6r', 'update.bat')"
@@ -77,7 +80,7 @@ goto desktop
 cls
 echo Update found! Version: %localtwo% , Server Version: %local%
 echo.
-set/p instupdate="Download and Extract update? (Y/N)= "
+set/p instupdate="Install update? (Y/N)= "
 if %instupdate% == Y goto instupdate1
 if %instupdate% == N goto desktop
 IF EXIST "update.bat" DEL /Q "update.bat"
@@ -87,11 +90,12 @@ goto no
 
 :instupdate1
 powershell -Command "(New-Object Net.WebClient).DownloadFile('https://github.com/QuotaGamer/BatchOS/archive/refs/heads/main.zip', 'update.zip')"
-powershell -Command "Expand-Archive -Path update.zip -DestinationPath ./UpdateFiles"
+powershell -Command "Expand-Archive -Path update.zip -DestinationPath ./"
+rename BatchOS-main Update
 IF EXIST "update.zip" DEL /Q "update.zip"
-echo Done! check UpTutorial.txt in system/tutorials to install the update. Press any key to return to desktop.
+echo Done! Go ahead and run UpdateInstaller.bat to install the update! (Press any key to exit.)
 pause >nul
-goto desktop
+exit
 
 :desktopguest
 cls
