@@ -1,18 +1,20 @@
 
 
        ##########################################
-       # About QuotaOS                          #
+       # About QuotaOS/BatchOS                  #
        ##########################################
-       # Build Version: Alpha 12                #
-       # PRODUCER: Quota                        #
-       # Build Date: 12/8/2021                  #
+       # Build Version: Alpha 13                #
+       # Creator: Quota                         #
+       # Build Date: 3/18/2022                  #
        #                                        #
        # Press any key to go back.              #
        ##########################################
        # Changelog:                             #
-       # A LOT. Update installer made! You no   #
-       # longer need to manually install upda-  #
-       # tes! I'm finally updating this screen, #
-       # it's literally been since alpha 6 it   #
-       # been updated. And more! :D Have fun!   #
+       #   EPIK Bootloader Removed.    RIP :(   #
+       #   Added a "SOS Login" feature that     #
+       #   automatically logs you in as guest   #
+       #   when you run mss.bat, if you need    #
+       #   to load the OS faster. Also added    #
+       #   a Fallback Server for update chec-   #
+       #   -king. Have fun using QuotaOS!  :D   #
        ##########################################

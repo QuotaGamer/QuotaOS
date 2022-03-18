@@ -1,10 +1,11 @@
 @echo off
 color 0a
 
-title Quota OS Alpha Build 12
-set version=Alpha-12
+title Quota OS Alpha Build 13
+set version=Alpha-13
 
 IF EXIST "update.bat" DEL /Q "update.bat"
+IF EXIST "updatef.bat" DEL /Q "updatef.bat"
 IF EXIST "UpdateFiles" RD "BatchOS-main" /S /Q
 IF EXIST "UpdateFiles" RD "Update" /S /Q
 
@@ -14,14 +15,19 @@ goto LOGINERR
 
 :LOGINERR
 cls
+set "userold=%username%"
 set "username=guest"
-echo We have detected that you logged in via a method other than the login.bat, which is opened when you use bootloader.bat.
-echo Because of this, your user has been set to %username%, to avoid the OS breaking. You will be sent to the guest desktop in ~10 seconds.
-timeout 10 >nul
+color 0c
+echo WARNING: You logged in using a login method that is not the normal method of logging in.
+echo Please press any key to load the OS as the Guest User.
+echo Old Username: %userold%
+pause >nul
+color 0a
 goto desktopguest
 
 :desktop
 IF EXIST "update.bat" DEL /Q "update.bat"
+IF EXIST "updatef.bat" DEL /Q "updatef.bat"
 IF EXIST "UpdateFiles" RD "BatchOS-main" /S /Q
 IF EXIST "UpdateFiles" RD "Update" /S /Q
 cls
@@ -59,18 +65,22 @@ IF EXIST "UpdateFiles" RD "Update" /S /Q
 set local=%version%
 set localtwo=%local%
 powershell -Command "(New-Object Net.WebClient).DownloadFile('https://pastebin.com/raw/qPnXWs6r', 'update.bat')"
+powershell -Command "(New-Object Net.WebClient).DownloadFile('https://pastebin.com/aWrF7Je4', 'updatef.bat')"
 CALL "update.bat"
+CALL "updatef.bat"
 goto check-2
 
 
 :: check-2 is where it checks if your remote matches with your local.
 :check-2
 IF "%local%"=="%localtwo%" goto :yes
+IF "%localf%"=="%localtwo%" goto :yesf
 IF NOT "%local%"=="%localtwo%" goto :no
+IF NOT "%localf%"=="%localtwo%" goto :no
 
 :yes
 cls
-echo No updates found. Version: %localtwo% , Server Version: %local%
+echo No updates found. Version: %localtwo% , Server Version: %local%, Fallback Server Version: %localf%
 echo.
 echo Press any key to return to desktop.
 pause >nul
@@ -78,7 +88,19 @@ goto desktop
 
 :no
 cls
-echo Update found! Version: %localtwo% , Server Version: %local%
+echo Update found! Version: %localtwo% , Server Version: %local%, Fallback Server Version: %localf%
+echo.
+set/p instupdate="Install update? (Y/N)= "
+if %instupdate% == Y goto instupdate1
+if %instupdate% == N goto desktop
+IF EXIST "update.bat" DEL /Q "update.bat"
+echo ERROR! Invalid option! Press any key to retry.
+pause >nul
+goto no
+
+:nof
+cls
+echo Update found on fallback server! Version: %localtwo% , Server Version: %local%, Fallback Server Version: %localf%
 echo.
 set/p instupdate="Install update? (Y/N)= "
 if %instupdate% == Y goto instupdate1
