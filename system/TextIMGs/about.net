@@ -1,20 +1,17 @@
 
 
        ##########################################
-       # About QuotaOS/BatchOS                  #
+       # About QuotableGamer/BatchOS            #
        ##########################################
-       # Build Version: Alpha 13                #
+       # Build Version: Alpha 14                #
        # Creator: Quota                         #
-       # Build Date: 3/18/2022                  #
+       # Build Date: 9/23/2023                  #
        #                                        #
        # Press any key to go back.              #
        ##########################################
        # Changelog:                             #
-       #   EPIK Bootloader Removed.    RIP :(   #
-       #   Added a "SOS Login" feature that     #
-       #   automatically logs you in as guest   #
-       #   when you run mss.bat, if you need    #
-       #   to load the OS faster. Also added    #
-       #   a Fallback Server for update chec-   #
-       #   -king. Have fun using QuotaOS!  :D   #
+       #  Fallback server removed, Added a      #
+       #  toggle to disable QuickLogin (QLOG)   #
+       #  easily. Installer now available on    #
+       #  GitHub! OS files are also decluttered.#
        ##########################################

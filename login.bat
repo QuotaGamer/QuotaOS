@@ -1,16 +1,16 @@
 @echo off
 color 0a
+set qloge=1
 goto login
-
 
 :login
 cls
-title QuotaOS v1.0-ALPHA-003
+title QuotaOS Alpha 14 - Login
 echo.
-echo QUICK LOGIN ENABLED (qlog)
+if %qloge% == 1 echo QUICK LOGIN ENABLED (qlog)
 echo.
 echo /################################\
-echo ########## Accounts ##############
+echo #            Accounts            #
 echo \################################/
 echo.
 echo Valid Users: admin
@@ -23,13 +23,13 @@ echo admin : admin
 echo.
 set/p "username=Account Name:"
 if %username%==guest goto desktop
-if %username%==qlog goto desktop
+if %qloge% == 1 if %username%==qlog goto desktop
 set/p "pass=Password:"
-if %username%==admin goto verif1
+if %username%==admin goto v-admin
 if not %username%==admin goto login
 
 
-:verif1
+:v-admin
 if %pass%==admin goto desktop
 if not %pass%==admin goto login
 
