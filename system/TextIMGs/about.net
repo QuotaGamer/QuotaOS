@@ -1,17 +1,17 @@
 
 
+       /########################################\
+       # About QuotaOS/BatchOS                  #
        ##########################################
-       # About QuotableGamer/BatchOS            #
-       ##########################################
-       # Build Version: Alpha 14                #
-       # Creator: Quota                         #
-       # Build Date: 9/23/2023                  #
+       # Build Version: Alpha 15                #
+       # Creators: Quota and Moona              #
+       # Build Date: 1/3/2024                   #
        #                                        #
        # Press any key to go back.              #
        ##########################################
        # Changelog:                             #
-       #  Fallback server removed, Added a      #
-       #  toggle to disable QuickLogin (QLOG)   #
-       #  easily. Installer now available on    #
-       #  GitHub! OS files are also decluttered.#
-       ##########################################
+       # Fixed the shitty login system that     #
+       # Quota made, remade the file structure  #
+       # for users, temporarily removed guests  #
+       # and the updater.                       #
+       \########################################/
