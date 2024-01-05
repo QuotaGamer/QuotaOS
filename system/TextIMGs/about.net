@@ -3,15 +3,13 @@
        /########################################\
        # About QuotaOS/BatchOS                  #
        ##########################################
-       # Build Version: Alpha 15                #
+       # Build Version: Alpha 16T1              #
        # Creators: Quota and Moona              #
-       # Build Date: 1/3/2024                   #
+       # Build Date: 1/4/2024                   #
        #                                        #
        # Press any key to go back.              #
        ##########################################
        # Changelog:                             #
-       # Fixed the shitty login system that     #
-       # Quota made, remade the file structure  #
-       # for users, temporarily removed guests  #
-       # and the updater.                       #
+       # Partially revamped OS and apps. Guests #
+       # are still temporarily removed.         #
        \########################################/

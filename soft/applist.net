@@ -1,5 +1,4 @@
-APPADD (Application Importer, make apps with nano by saving them as ".bat" files)
-BPT (Package Installer)
-nano (Text Editor)
-term (Terminal)
-calc
+appadd
+GNU Nano 2.7.5
+QTerminal
+Calculator

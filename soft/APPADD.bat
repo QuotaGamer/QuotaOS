@@ -1,32 +1,27 @@
 @echo off
 title QuotaOS - App Import
-:AI
+:start
 cls
 echo.
 echo /################\
 echo #  App Importer  #
 echo \################/
 echo.
-set/p "appname=Enter name of app:
-goto createNH
-
-:createNH
-cls
-echo.
-echo App Name: %appname%
-echo.
-set/p "appverif=Is this correct? (Y/N):"
-if %appverif%==Y goto createNH-V
-if %appverif%==N goto AI
-if %appverif%==y goto createNH-V
-if %appverif%==n goto AI
-goto createNH
-
-:createNH-V
-cls
-echo.
-echo Verified!
-echo.
-echo Adding application...
-echo %appname%>>applist.net
-exit
+set /p "appName=What's the name of the app? "
+if exist "..\users\%accName%\Documents\%appName%.bat" (
+	echo %appName% >> applist.net
+	xcopy "..\users\%accName%\Documents\%appName%.bat" ..\soft\
+	if exist "%appName%.bat" (
+		echo Successfully added %appName%.
+		pause
+		mss.bat
+	) else (
+		echo Failed to add %appName%. Is your app in the Documents folder?
+		pause
+		..\mss.bat
+	)
+) else (
+	echo App not found.
+	pause
+	goto start
+)

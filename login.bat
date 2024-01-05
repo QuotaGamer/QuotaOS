@@ -1,6 +1,6 @@
 @echo off
 color 0a
-title QuotaOS Alpha 15 - Login
+title QuotaOS Alpha 16H1 - Login
 
 if exist "username.txt" (
     for /f "delims=" %%a in (username.txt) do (
@@ -50,7 +50,7 @@ if "%pick%"=="1" (
 set /p "accName=Name your account: "
 set /p "accPass=Make your password: "
 
-<nul set /p "= %accName%" > username.txt
+<nul set /p "= %accName%" > system\Variables\username.txt
 cd users & mkdir %accName% & cd %accName%
 mkdir Documents & mkdir Downloads & mkdir Settings
 cd Settings
@@ -60,7 +60,12 @@ goto start
 
 :login
 set /p "loginName=Enter your username: "
-set /p "loginPass=Enter your password: "
+if "%loginName%"=="qlog" (
+    set "accName=qlog"
+    goto desktop
+) else (
+	set /p "loginPass=Enter your password: "
+)	
 
 if "%loginName%"=="%accName%" (
     if "%loginPass%"=="%accPass%" (
@@ -68,12 +73,9 @@ if "%loginName%"=="%accName%" (
     )
 ) else if "%loginName%"=="admin" (
     if "%loginPass%"=="admin" (
-        set "accName=admin"
+		set accName=admin
         goto desktop
     )
-) else if "%loginName%"=="qlog" (
-    set "accName=qlog"
-    goto desktop
 ) else (
     echo Invalid User.
     pause
