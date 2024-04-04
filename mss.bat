@@ -1,96 +1,42 @@
 @echo off
-color 0a
-
-title Quota OS Alpha Build 16T1 - OS
-set "version=Alpha-16T1"
-
-IF EXIST "update.bat" DEL /Q "update.bat"
-IF EXIST "UpdateFiles" RD "BatchOS-main" /S /Q
-IF EXIST "UpdateFiles" RD "Update" /S /Q
-
-set "logtest=%loginuse%0"
-if %logtest% == 10 goto desktop
-goto LOGINERR
-
-:LOGINERR
 cls
-set "userold=%username%"
-set "username=guest"
-color 04
-echo WARNING: You logged in using a method that isn't the normal method of logging in.
-echo Please press any key to load the OS as the Guest User.
-echo Old Username: %userold%
-pause >nul
-color 0a
-goto desktopguest
+title QuotaOS Alpha 16, Third 2
+
+if exist system\temp\booted.tmp (
+	goto desktop
+) else (
+	color 0c
+	echo You accessed MSS.BAT using an unauthorized method.
+	echo In 3 seconds you will be exited.
+	timeout /t 3
+	exit
+)
 
 :desktop
-IF EXIST "update.bat" DEL /Q "update.bat"
-IF EXIST "UpdateFiles" RD "BatchOS-main" /S /Q
-IF EXIST "UpdateFiles" RD "Update" /S /Q
-cls
-if %username%==guest goto desktopguest
-if %accName%==qlog (
-	type users\qlog\Settings\background.txt
-) else (
-	type users\admin\Settings\background.txt
-)
 echo.
-echo     Welcome to QuotaOS
-echo	      Version %version%
+echo           Welcome to QuotaOS
 echo.
-echo        User: %accName%
+echo    1.                  Applications
+echo    2.               System Settings
+echo    3.                 About QuotaOS
+echo    4.                       Log Out
+echo    (Logged in as %accname0%)
 echo.
-echo 1.          Apps
-echo 2.     System Settings
-echo 3.      About QuotaOS
-echo 4.        Add User
-echo 5.         Log Out
-echo.
-set/p "choose1=Choose:"
-if %choose1%==1 goto apps
-if %choose1%==2 goto settings
-if %choose1%==3 login.bat
-if %choose1%==4 goto about
-if %choose1%==5 goto exit
+set/p "option="
+if %option%==1 goto apps
+if %option%==2 goto settings
+if %option%==3 goto about
+if %option%==4 goto logout
 goto desktop
 
-:desktopguest
-cls
-type user\admin\Settings\background.txt
-echo.
-echo     Welcome to QuotaOS
-echo.
-echo       Guest Session
-echo.
-echo 1         Apps
-echo 2     About QuotaOS
-echo 3    About QuotaOS
-echo 4       Log Out
-set/p "choose4=Choose:"
-if %choose4%==1 goto apps
-if %choose4%==2 goto about
-if %choose4%==3 goto quit
-if %choose4%==4 login.bat
-goto desktopguest
-
-:restart
-set username=
-login.bat
-
-:quit
-exit
-
-:about
-cls
-type system\TextIMGS\about.net
-pause>nul
+:apps
+echo Applications are temporarily disabled.
 goto desktop
 
 :settings
 cls
 echo /#####################################\
-echo #           System settings           #
+echo #           System Settings           #
 echo \#####################################/
 echo.
 echo X. Go to desktop
@@ -101,11 +47,15 @@ set/p "choose2=Choose:"
 if %choose2%==X goto desktop
 if %choose2%==1 goto colors
 if %choose2%==2 goto wallfolder
+goto settings
 
-:apps
+
+:about
 cls
-cd soft
-type applist.net
-echo.
-set /p "apptoRun=Which app? "
-%apptoRun%.bat
+type system\TextIMGS\about.net
+pause>nul
+goto desktop
+
+:logout
+DEL /Q system\temp\booted.tmp
+exit

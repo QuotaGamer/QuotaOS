@@ -1,88 +1,180 @@
 @echo off
+title QuotaOS Alpha 16, Third 2
 color 0a
-title QuotaOS Alpha 16H1 - Login
 
-if exist "username.txt" (
-    for /f "delims=" %%a in (username.txt) do (
-        set "accName=%%a"
-        goto checkPassword
-    )
-) else (
-    goto start
+if not exist system\temp (
+	mkdir system\temp
 )
 
-:checkPassword
-cd "users\%accName%\Settings"
-if exist "password.txt" (
-    for /f "delims=" %%b in (password.txt) do (
-        set "accPass=%%b"
-        cd ..\..\..
-        goto start
-    )
-) else (
-    cd ..\..\..
-    goto start
+if not exist system\memory (
+	mkdir system\temp
 )
+
+if exist system\temp\booted.tmp (
+	DEL /Q system\temp\booted.tmp
+)
+:prestart
+
+:: Finding out how many users there are
+cd system\memory
+if exist username0.txt (
+	for /f "delims=" %%a in (username0.txt) do (
+		set "accname=%%a"
+		set "usernameFile=username1"
+	)
+) else (
+	set "usernameFile=username0"
+)
+
+if exist username1.txt (
+	for /f "delims=" %%b in (username1.txt) do (
+		set "accname2=%%b"
+	)
+)
+
+if exist password0.txt (
+	for /f "delims=" %%a in (password0.txt) do (
+		set "accpass=%%a"
+		set "passwordFile=password1"
+	)
+) else (
+	set "passwordFile=password0"
+)
+
+if exist password1.txt (
+	for /f "delims=" %%b in (password1.txt) do (
+		set "accpass2=%%b"
+	)
+)
+cd ..\..
+
 
 :start
 cls
 echo.
+echo  /##################################\
+echo  #                                  #
+echo  #        Welcome to QuotaOS        #
+echo  #                                  #
+echo  # 1.           Login to an account #
+echo  # 2.             Create an account #
+echo  #                                  #
+echo  \##################################/
 echo.
-echo /################################\
-echo #            Accounts            #
-echo \################################/
-echo.
-echo.
-echo             1. Create
-echo             2. Log in
-echo.
-echo.
-set /p "pick=Pick: "
-if "%pick%"=="1" ( 
-    goto create 
-) else if "%pick%"=="2" (
-    goto login 
-) else ( 
-    goto start 
+set /p "option="
+
+:: Checks which option the user picked
+if %option%==2 (
+	goto create
+) else if %option%==1 (
+	goto login
+) else (
+	cls
+	goto start
 )
+exit
 
 :create
-set /p "accName=Name your account: "
-set /p "accPass=Make your password: "
+echo.
+echo /#####################################\
+echo #          Name Your Account          #
+echo \#####################################/
+echo.
+set /p "accname="
+echo.
+echo /#####################################\
+echo #         Set Account Password        #
+echo \#####################################/
+echo.
+set /p "accpass="
 
-<nul set /p "= %accName%" > system\Variables\username.txt
-cd users & mkdir %accName% & cd %accName%
-mkdir Documents & mkdir Downloads & mkdir Settings
-cd Settings
-<nul set /p "= %accPass%" > password.txt
-cd ..\..\..
-goto start
+:: Creates the username and password memory files
+<nul set /p "= %accname%" > system\memory\%usernameFile%.txt
+<nul set /p "= %accpass%" > system\memory\%passwordFile%.txt
+
+goto prestart
 
 :login
-set /p "loginName=Enter your username: "
-if "%loginName%"=="qlog" (
-    set "accName=qlog"
-    goto desktop
+cls
+echo.
+echo            Login to QuotaOS         
+echo.
+echo    1.             List all accounts 
+echo    2.           Login to an account 
+echo    3.                       Go back 
+echo.
+set /p "option="
+if %option%==1 (
+	echo.
+	echo %accname%, %accname2%
+	echo.
+	pause
+	goto login
+) else if %option%==2 (
+	goto loginto
+) else if %option%==3 (
+	goto start
 ) else (
-	set /p "loginPass=Enter your password: "
-)	
-
-if "%loginName%"=="%accName%" (
-    if "%loginPass%"=="%accPass%" (
-        goto desktop
-    )
-) else if "%loginName%"=="admin" (
-    if "%loginPass%"=="admin" (
-		set accName=admin
-        goto desktop
-    )
-) else (
-    echo Invalid User.
-    pause
-    goto start
+	goto login
 )
 
-:desktop
-set loginUse=1
-mss.bat
-exit
+:loginto
+echo.
+echo /#####################################\
+echo #          Account Username?          #
+echo \#####################################/
+echo.
+set /p "accnamelogin="
+if %accnamelogin%==%accname% (
+	echo.
+	echo  Logging into %accname%
+	echo /#####################################\
+	echo #            Enter Password           #
+	echo \#####################################/
+	echo.
+	set /p "accpasslogin="
+	goto loginconf
+) else if %accnamelogin%==%accname2% (
+	echo.
+	echo  Logging into %accname2%
+	echo /#####################################\
+	echo #            Enter Password           #
+	echo \#####################################/
+	echo.
+	set /p "accpasslogin="
+	goto loginconf2
+)
+
+:loginconf
+if %accpasslogin%==%accpass% (
+	set accname0=%accname%
+	set accpass0=%accpass%
+	<nul set /p "= 1" > system\temp\booted.tmp
+	mss.bat
+) else (
+	echo /#####################################\
+	echo #       ERROR: INVALID PASSWORD       #
+	echo \#####################################/
+	echo.
+	echo Press any key to retry
+	pause >nul
+	cls
+	goto loginto
+)
+
+:loginconf2
+if %accpasslogin%==%accpass2% (
+	set accname0=%accname2%
+	set accpass0=%accpass2%
+	<nul set /p "= 1" > system\temp\booted.tmp
+	mss.bat
+) else (
+	echo /#####################################\
+	echo #       ERROR: INVALID PASSWORD       #
+	echo \#####################################/
+	echo.
+	echo Press any key to retry
+	pause >nul
+	cls
+	goto loginto
+)
