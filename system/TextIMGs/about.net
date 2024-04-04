@@ -1,15 +1,20 @@
 
 
-       /########################################\
-       # About QuotaOS/BatchOS                  #
-       ##########################################
-       # Build Version: Alpha 16T1              #
-       # Creators: Quota and Moona              #
-       # Build Date: 1/4/2024                   #
-       #                                        #
-       # Press any key to go back.              #
-       ##########################################
-       # Changelog:                             #
-       # Partially revamped OS and apps. Guests #
-       # are still temporarily removed.         #
-       \########################################/
+  /########################################\
+  # About QuotaOS                          #
+  ##########################################
+  # Build Version: Alpha 16, Third 2       #
+  # Creators: Quota and MoonaLoona         #
+  # Build Date: 4/4/2024                   #
+  #                                        #
+  # Press any key to go back.              #
+  ##########################################
+  # Changelog:                             #
+  # Revamped the login system again, with  #
+  # the long awaited.. multi-user support! #
+  # Currently, only 2 users are possible,  #
+  # but that is planned to change.         #
+  # Unlimited users are a bit harder so,   #
+  # for some time, there will be a user    #
+  # cap. - Moona, Lead Dev of QuotaOS      #
+  \########################################/
