@@ -16,3 +16,6 @@ would go on to overhaul the login system, and in the future, the whole OS.
 QuotaGamer - Originally creating the OS in 2021 and updating it until 2023
 
 MunaLoona - Revamping the OS in 2024, as well as updating the readme.md
+
+## Discord
+https://discord.gg/YjxuCnbAcn
