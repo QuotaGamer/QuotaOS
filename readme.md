@@ -10,4 +10,4 @@ QuotaGamer - Originally creating the OS in 2021 and updating it until 2023
 MunaLoona - Revamping the OS in 2024, as well as updating the readme.md
 
 ## Discord
-https://discord.gg/YjxuCnbAcn
+https://discord.gg/Z4tCx2Z3xe
