@@ -1,40 +1,23 @@
 @echo off
 setlocal enabledelayedexpansion
-title QuotaOS Alpha 16, Third 3
+title QuotaOS Beta 1
 color 0f
+
 :prestart
+for /f %%a in ('echo prompt $E^| cmd') do set "\e=%%a"
 
 :: Finding out how many users there are
 cd system\memory
-if exist username0.txt (
-	for /f "delims=" %%a in (username0.txt) do (
-		set "accname=%%a"
-		set "usernameFile=username1"
-	)
-) else (
-	set "usernameFile=username0"
-)
 
-if exist username1.txt (
-	for /f "delims=" %%b in (username1.txt) do (
-		set "accname2=%%b"
+if exist users.csv (
+	for /f "tokens=1-4 delims=," %%A in (users.csv) do (
+	set "users[%%~A][id]=%%~A"
+	set "users[%%~A][level]=%%~B"
+    set "users[%%~A][name]=%%~C"
+    set "users[%%~A][password]=%%~D"
 	)
 )
 
-if exist password0.txt (
-	for /f "delims=" %%c in (password0.txt) do (
-		set "accpass=%%c"
-		set "passwordFile=password1"
-	)
-) else (
-	set "passwordFile=password0"
-)
-
-if exist password1.txt (
-	for /f "delims=" %%d in (password1.txt) do (
-		set "accpass2=%%d"
-	)
-)
 cd ..\..
 
 :start
@@ -44,25 +27,27 @@ echo    /#####################################\
 echo    #          Welcome to QuotaOS         #
 echo    \#####################################/
 echo.
-echo          1.                    Login
-echo          2.           Create Account
+echo          1 ------------------- Login
+echo          2 ---------- Create Account
 echo.
 set /p "option="
 
 :: Checks which option the user picked
-if %option%==2 (
-	goto create
-) else if %option%==1 (
-	goto login
-) else if /i %option%==qLog (
-	goto qLog
-) else (
+if "%option%"=="2" (
+    goto create
+) else if "%option%"=="1" (
 	cls
-	goto start
+    goto login
+) else if /i "%option%"=="qLog" (
+    goto qLog
+) else (
+    cls
+    goto start
 )
 exit
 
 :create
+
 echo.
 echo    /#####################################\
 echo    #          Name Your Account          #
@@ -78,128 +63,69 @@ echo.
 set /p "accpass="
 
 :: Creates the username and password memory files
-<nul set /p "= %accname%" > system\memory\%usernameFile%.txt
-<nul set /p "= %accpass%" > system\memory\%passwordFile%.txt
+for /f "delims=," %%A in (system\memory\id.global) do (
+	set /a global_id=%%A-1
+	> system\memory\id.global echo !global_id!
+)
+>> system\memory\users.csv echo %global_id%,2,%accname%,%accpass%
 mkdir users\%accname% && mkdir users\%accname%\Documents & mkdir users\%accname%\Preferences
 <nul set /p "= 0f" > users\%accname%\Preferences\systemColor.pref
-
+<nul set /p "= 2" > users\%accname%\user.lvl
 goto prestart
 
 :login
 cls
-echo.
-echo    Available Users: %accname%  %accname2%
-echo    /#####################################\
-echo    #           Login to QuotaOS          #
-echo    \#####################################/     
-echo.
-echo          1.     Login to an account 
-echo          2.                 Go back 
-echo.
+echo=
+echo=   /#####################################\
+echo=   #           Login to QuotaOS          #
+echo=   \#####################################/     
+echo=
+echo=         1 ---- Login to an account
+echo=         2 ---------------- Go back
+echo=
+echo=          Available Users:
+set "names="
+for /f "tokens=2 delims==" %%A in ('set users[ ^| find "name"') do set "names=!names!,%%~A"
+set "names=!names:~1!"
+echo=          %\e%[48;2;0;255;0;38;2;0;0;0m!names!%\e%[0m
+echo=
 set /p "option="
-if %option%==1 goto loginto
-if %option%==2 goto start
+if "%option%"=="1" goto loginto
+if "%option%"=="2" goto start
+cls
 goto login
 
 :loginto
 echo.
-echo    /#####################################\
-echo    #            Enter Username           #
-echo    \#####################################/
+set /p "user_name=Enter Username: "
+if %user_name%==qLog goto qLog
+findstr ",%user_name%," system\memory\users.csv >nul || (
+    goto login
+)
 echo.
-set /p "accnamelogin="
-if %accnamelogin%==%accname% (
-	echo.
-	echo.
-	echo  Logging into %accname%
-	echo    /#####################################\
-	echo    #            Enter Password           #
-	echo    \#####################################/
-	echo.
-	set /p "accpasslogin="
-	goto loginconf
-) else (
-	echo.
-	echo.
-	echo    /#####################################\
-	echo    #       ERROR: INVALID USERNAME       #
-	echo    \#####################################/
-	echo.
-	echo Press any key to retry
-	pause >nul
-	cls
-	goto loginto
-)
+set /p "password=Enter Password: "
 
-if %accnamelogin%==%accname2% (
-	echo.
-	echo.
-	echo  Logging into %accname2%
-	echo    /#####################################\
-	echo    #            Enter Password           #
-	echo    \#####################################/
-	echo.
-	set /p "accpasslogin="
+for /f "tokens=4 delims=," %%A in ('findstr ",%user_name%," system\memory\users.csv 2^>nul') do set "actual_password=%%~A"
+if not "%actual_password%"=="%password%" (
+    echo %actual_password%
+	echo %password%
 	pause
-	goto loginconf2
-) else (
-	echo.
-	echo.
-	echo    /#####################################\
-	echo    #       ERROR: INVALID USERNAME       #
-	echo    \#####################################/
-	echo.
-	echo Press any key to retry
-	pause >nul
-	cls
-	goto loginto
 )
 
-:loginconf
-if %accpasslogin%==%accpass% (
-	set accname0=%accname%
-	set accpass0=%accpass%
-	<nul set /p "= 1" > system\temp\booted.tmp
-	mss.bat
-) else (
-	echo.
-	echo.
-	echo    /#####################################\
-	echo    #       ERROR: INVALID PASSWORD       #
-	echo    \#####################################/
-	echo.
-	echo Press any key to retry
-	pause >nul
-	cls
-	goto loginto
-)
+for /f "tokens=2 delims=," %%A in ('findstr ",%user_name%," system\memory\users.csv 2^>nul') do set "acclvl0=%%~A"
+for /f "tokens=1 delims=," %%A in ('findstr ",%user_name%," system\memory\users.csv 2^>nul') do set /a "accid0=%%~A*-1"
+set accname0=%user_name%
+set accpass0=%password%
+mss.bat
 
-:loginconf2
-if %accpasslogin%==%accpass2% (
-	set accname0=%accname2%
-	set accpass0=%accpass2%
-	<nul set /p "= 1" > system\temp\booted.tmp
-	mss.bat
-) else (
-	echo.
-	echo.
-	echo    /#####################################\
-	echo    #       ERROR: INVALID PASSWORD       #
-	echo    \#####################################/
-	echo.
-	echo Press any key to retry
-	pause >nul
-	cls
-	goto loginto
-)
+exit
 
 :qLog
-
 set accname0=qLog
 set accpass0=qLog
-<nul set /p "= 1" > system\temp\booted.tmp
 
-mkdir system\temp\tempusers\qLog && mkdir system\temp\tempusers\qLog\Documents & mkdir system\temp\tempusers\qLog\Preferences
-<nul set /p "= 0f" > system\temp\tempusers\qLog\Preferences\systemColor.pref
-
+cd system\temp & mkdir users\%accname% && mkdir users\%accname%\Documents & mkdir users\%accname%\Preferences
+<nul set /p "= 0f" > users\%accname%\Preferences\systemColor.pref
+<nul set /p "= 1" > users\%accname%\user.lvl
+cd ..\..
 mss.bat

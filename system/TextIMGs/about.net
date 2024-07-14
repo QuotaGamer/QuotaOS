@@ -3,16 +3,17 @@
   /########################################\
   # About QuotaOS                          #
   ##########################################
-  # Build Version: Alpha 16, Third 3       #
+  # Build Version: Beta 1                  #
   # Creators: Quota and MoonaLoona         #
-  # Build Date: 4/4/2024                   #
+  # Build Date: 7/13/2024                  #
   #                                        #
-  # Press any key to go back.              #
+  #                                        #
   ##########################################
   # Changelog:                             #
-  # Overhauled the desktop with more       #
-  # coming soon. qLog and applications     #
-  # added back. Use the OS exit instead of #
-  # the exit button to prevent bugs.       #
-  # - Moona, Lead Dev of QuotaOS           #
+  # Added "Your Info", made certain text   #
+  # color coded, added permission levels,  #
+  # switched to CSV files to store user    #
+  # data, and unlimited user accounts are  #
+  # able to be created.                    #
+  # - Moona, Lead dev of QuotaOS           #
   \########################################/

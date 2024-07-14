@@ -7,7 +7,6 @@ QuotaOS was created by QuotaGamer on July 10, 2021. Originally just a small side
 
 ## Credits
 QuotaGamer - Originally creating the OS in 2021 and updating it until 2023
-
 MunaLoona - Revamping the OS in 2024, as well as updating the readme.md
 
 ## Discord
