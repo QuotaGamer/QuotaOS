@@ -1,3 +1,5 @@
+# [deprecated since 12/31/2024\]
+
 # QuotaOS - A Purely Batch "OS".
 QuotaOS, originally named BatchOS, is an "OS" purely made out of the interpreted programming language... Batch! 
 The OS in quotes because QuotaOS is NOT a real OS. It's more of an emulation of a 1980s OS.
